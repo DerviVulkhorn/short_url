@@ -1,0 +1,79 @@
+﻿@model Users 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ShortLink</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ShortLink.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <h2><span class="badge bg-secondary">ShortLink</span></h2>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (Context.Request.Cookies.ContainsKey("token"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Url List</a>
+                            </li>
+                        }
+                    </ul>
+                    @if (Context.Request.Cookies.ContainsKey("token"))
+                    {
+                        <form class="d-flex">
+                            @{
+                                var userEmail = Context.Items["UserEmail"] as string;
+                            }
+                            <button class="btn btn-outline-success">
+                                @userEmail
+                            </button>
+                            <button class="btn btn-outline-success" asp-area="" asp-controller="LogOut" asp-action="Index">
+                                LogOut
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="d-flex">
+                            <button class="btn btn-outline-success" asp-area="" asp-controller="Auth" asp-action="Registration">
+                                Register
+                            </button>
+                            <button class="btn btn-outline-success" asp-area="" asp-controller="Login" asp-action="Login">
+                                Login
+                            </button>
+                        </form>
+                    }
+                    
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - ShortLinkBeta - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
