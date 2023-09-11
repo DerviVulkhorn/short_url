@@ -14,7 +14,7 @@ namespace ShortLink.Controllers
         {
             var context = _httpContextAccessor.HttpContext;
             context.Response.Cookies.Delete("token");
-            return Redirect("/");
+            return Redirect("/home");
         }
     }
 }

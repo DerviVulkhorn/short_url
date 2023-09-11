@@ -12,7 +12,7 @@ using ShortLink.Entity;
 namespace ShortLink.Migrations
 {
     [DbContext(typeof(EntityDb))]
-    [Migration("20230909152304_InitialDatabase")]
+    [Migration("20230911081813_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

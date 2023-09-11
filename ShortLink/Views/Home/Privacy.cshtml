@@ -1,34 +1,50 @@
-﻿@{
+﻿@using ShortLink.Models
+@model Users
+@{
     ViewData["Title"] = "List Url";
 }
 <h1>@ViewData["Title"]</h1>
 
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Add link</button>
+<form method="post" asp-action="AddUrl" asp-controller="Home">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter your url"
+        aria-label="Enter your url" aria-describedby="basic-addon2" id="link" name="link">
+        <div class="input-group-append">  
+            <button class="btn btn-outline-secondary" type="submit">Add link</button>    
+        </div>
     </div>
+</form>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Original Link</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Short Link</th>
+                <th scope="col">Count Move</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (OriginalLink link in Model.OriginalLink)
+                {
+                    @foreach (Code code in link.code.Distinct())
+                    {
+                        <tr>
+                            <td>@link.link</td>
+                            <td>@link.createdAt</td>
+                            <td><a href="https://localhost:7112/s/@code.code">https://localhost:7112/s/@code.code</a></td>
+                            <td>@code.countMove</td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <meta http-equiv="refresh"/>
+            }
+            
+
+        </tbody>
 </div>
-<table class="table table-striped">
-<thead>
-    <tr>
-        <th scope="col">Original Link</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-    </tr>
-</thead>
-<tbody>
-    <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td></td>
-    </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td</td>
-    </tr>
-</tbody>
-</table>
